@@ -62,6 +62,7 @@ pipeline {
                 '''
             }
         }
+    }
         post {
             always {
                 mail to: 'urgentamang0909@gmail.com',
