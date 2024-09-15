@@ -20,12 +20,12 @@ pipeline {
                 label 'ubuntu-slave'
             }
             steps {
-                copyArtifacts filter: copyArtifacts filter: '**/*.war', fingerprintArtifacts: true, projectName: env.JOB_NAME, selector: specific(env.BUILD_NUMBER)
+                copyArtifacts filter: '**/*.war', fingerprintArtifacts: true, projectName: env.JOB_NAME, selector: specific(env.BUILD_NUMBER)
                 echo "Building docker image"
                 sh '''
                 original_pwd=$(pwd -P)
                 cd jenkins/java-tomcat-sample
-                docker build -t localtomcatimg:$BUILD_NUMBER
+                docker build -t localtomcatimg:$BUILD_NUMBER .
                 cd $original_pwd
                 '''
             }
