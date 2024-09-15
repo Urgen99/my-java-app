@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Build') {
            steps {
-            sh 'mvn -f home/vagrant/pom.xml clean package'
+            sh 'mvn -f /var/lib/jenkins/workspace/javaapp/pom.xml clean package'
            }
            post {
             success {
