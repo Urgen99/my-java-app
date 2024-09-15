@@ -2,6 +2,9 @@ pipeline {
     agent {
         label 'ubuntu-slave'
     }
+    environment {
+        scannerHome = tool 'sonar6.1'
+    }
     stages {
         stage('Build') {
            steps {
