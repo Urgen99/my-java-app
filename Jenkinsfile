@@ -24,7 +24,6 @@ pipeline {
                 echo "Building docker image"
                 sh '''
                 original_pwd=$(pwd -P)
-                cd jenkins/java-tomcat-sample
                 docker build -t localtomcatimg:$BUILD_NUMBER .
                 cd $original_pwd
                 '''
