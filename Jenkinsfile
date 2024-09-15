@@ -1,4 +1,4 @@
-pipeline {
+pipeline { 
     agent {
         label 'ubuntu-slave'
     }
@@ -65,7 +65,7 @@ pipeline {
         post {
             always {
                 mail to: 'urgentamang0909@gmail.com',
-                subject: Job "${JOB_NAME}' (${BUILD_NUMBER}) is waiting for input",
+                subject: "Job '${JOB_NAME}' (${BUILD_NUMBER}) is waiting for input",
                 body: "Please go to ${BUILD_URL} and verify the build"
 
             }
