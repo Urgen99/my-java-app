@@ -62,6 +62,39 @@ pipeline {
                 '''
             }
         }
-    }
+        post {
+            always {
+                mail to: 'urgentamang0909@gmail.com',
+                subject: Job "${JOB_NAME}' (${BUILD_NUMBER}) is waiting for input",
+                body: "Please go to ${BUILD_URL} and verify the build"
+
+            }
+            success {
+            mail bcc: '', body: """Hi Team,
+
+                 Build #$BUILD_NUMBER is successful, please go through the url
+
+                $BUILD_URL
+
+                and verify the details.
+
+                Regards,
+                DevOps Team""", cc: '', from: '', replyTo: '', subject: 'BUILD SUCCESS NOTIFICATION', to: 'urgentamang0909@gmail.com'}
+            failure{
+            mail bcc: '', body: """Hi Team,
+            
+                Build #$BUILD_NUMBER is unsuccessful, please go through the url
+
+                $BUILD_URL
+
+                and verify the details.
+
+                Regards,
+                DevOps Team""", cc: '', from: '', replyTo: '', subject: 'BUILD FAILED NOTIFICATION', to: 'urgentamang0909@gmail.com'}
+
+
+    }   
 }
+}
+
     
