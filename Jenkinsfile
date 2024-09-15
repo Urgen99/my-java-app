@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Sonar Analysis') {
             steps {
-                withSonarQubeEnv('sonar') {
+                withSonarQubeEnv('sonar6.1') {
                     sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=java-tomcat-sample \
                         -Dsonar.projectName=java-tomcat-sample \
                         -Dsonar.projectVersion=4.0 \
