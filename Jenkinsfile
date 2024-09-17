@@ -3,7 +3,7 @@ pipeline {
         label 'ubuntu-slave'
     }
     environment {
-        scannerHome = tool 'sonar6.1'
+        scannerHome = tool 'sonar'
     }
     stages {
         stage('Build') {
@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Sonar Analysis') {
             steps {
-                withSonarQubeEnv('sonar6.1') {
+                withSonarQubeEnv('sonar') {
                     sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=java-tomcat-sample \
                         -Dsonar.projectName=java-tomcat-sample \
                         -Dsonar.projectVersion=4.0 \
