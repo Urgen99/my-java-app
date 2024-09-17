@@ -31,27 +31,7 @@ pipeline {
                 }
             }
         }
-        // stage("UploadArtifact") {
-        //     steps {
-        //         nexusArtifactUploader(
-        //             nexusVersion: 'nexus3',
-        //             protocol: 'http',
-        //             nexusUrl: '192.168.56.31:8081',
-        //             groupId: 'devops',
-        //             version: "${env.BUILD_ID}-${env.BUILD_TIMESTAMP}",
-        //             repository: 'devops-ta-java-application',
-        //             credentialsId: 'nexuslogin',
-        //             artifacts: [
-        //                 [artifactId: 'java-tomcat-sample',
-        //                  classifier: '',
-        //                  file: 'jenkins/java-tomcat-sample/target/java-tomcat-maven-example.war',
-        //                  type: 'war']
-        //             ]
-        //         )
-        //     }
-        // }
-
-
+        
 
 
 
