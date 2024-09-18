@@ -3,7 +3,7 @@ pipeline {
         label 'ubuntu-slave'
     }
     environment {
-        scannerHome = tool 'sonar6.1'
+        scannerHome = tool 'sonar6.2'
     }
     stages {
         stage('Build') {
