@@ -44,7 +44,7 @@ pipeline {
                     artifacts: [
                         [artifactId: 'java-tomcat-sample',
                          classifier: '',
-                         file: 'jenkins/java-tomcat-sample/target/java-tomcat-maven-example.war',
+                         file: 'target/java-tomcat-maven-example.war',
                          type: 'war']
                     ]
                 )
