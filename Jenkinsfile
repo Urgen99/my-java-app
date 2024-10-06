@@ -4,10 +4,13 @@ pipeline {
     }
     environment {
         scannerHome = tool 'sonar6.2'
+        dockerhub_credentail_id = '	Dockerhub-credentials'
+         DOCKER_HUB_REPO = "urgentamang/localtomcatimg"
+
         // registry = "urgentamang/localtomcatimg"
         // registryCredential = 'Dockerhub-credentials'
         // dockerImage = 'localtomcatimg:$BUILD_NUMBER'
-        dockerhub_credential = credentials('dockerhub')
+        // dockerhub_credential = credentials('dockerhub')
     }
     stages {
         stage('Build') {
@@ -59,9 +62,11 @@ pipeline {
                 label 'ubuntu-slave'
             }
             steps {
-                sh """
-                        echo ${dockerhub_credential_PSW} | docker login -u ${dockerhub_credential_USR} --password-stdin
-                    """
+             
+                     withCredentials([usernamePassword(credentialsId: "$dockerhub_credentail_id", usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
+                       sh 'echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin'
+                    
+                 
             }
         }
         stage('Create Tomcat Image') {
@@ -74,9 +79,9 @@ pipeline {
                 echo "Building docker image"
                 sh '''
                 original_pwd=$(pwd -P)
-                docker build -t localtomcatimg:$BUILD_NUMBER .
-                docker image push localtomcatimg:$BUILD_NUMBER
-                docker rmi localtomcatimg:$BUILD_NUMBER
+                docker build -t ${DOCKER_HUB_REPO}:$BUILD_NUMBER .
+                docker push "${DOCKER_HUB_REPO}:${BUILD_NUMBER}"
+                docker rmi "${DOCKER_HUB_REPO}:${BUILD_NUMBER}"
                 cd $original_pwd
                 '''
             }
