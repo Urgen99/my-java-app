@@ -97,7 +97,7 @@ pipeline {
                  sh '''
                 docker stop tomcatInstanceStaging || true
                 docker rm tomcatInstanceStaging || true
-                docker run -itd --name tomcatInstanceStaging -p 8082:8080 localtomcatimg:$BUILD_NUMBER
+                docker run -itd --name tomcatInstanceStaging -p 8082:8080 "${DOCKER_HUB_REPO}":$BUILD_NUMBER
                 '''
             }
 
@@ -115,7 +115,7 @@ pipeline {
                 sh '''
                 docker stop tomcatInstanceProd || true
                 docker rm tomcatInstanceProd || true
-                docker run -itd --name tomcatInstanceProd -p 8083:8080 localtomcatimg:$BUILD_NUMBER
+                docker run -itd --name tomcatInstanceProd -p 8083:8080 "${DOCKER_HUB_REPO}":$BUILD_NUMBER
                 '''
             }
         }
