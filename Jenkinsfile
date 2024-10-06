@@ -62,6 +62,7 @@ pipeline {
                 sh '''
                 original_pwd=$(pwd -P)
                 docker build -t localtomcatimg:$BUILD_NUMBER .
+                docker login -u urgentamang
                 docker image push localtomcatimg:$BUILD_NUMBER
                 docker rmi localtomcatimg:$BUILD_NUMBER
                 cd $original_pwd
