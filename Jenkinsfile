@@ -6,6 +6,8 @@ pipeline {
         scannerHome = tool 'sonar6.2'
         dockerhub_credentail_id = '	Dockerhub-credentials'
         DOCKER_HUB_REPO = "urgentamang/localtomcatimg"
+        terraform_workdir = '/terraform'
+        aws_credentials_id = 'AKIAXZ5NFYJPPW3X3MIT'
 
         // registry = "urgentamang/localtomcatimg"
         // registryCredential = 'Dockerhub-credentials'
@@ -113,10 +115,15 @@ pipeline {
                 }
                 echo " Running app on Prod env"
                 sh '''
+                cd ${terraform_workdir}
+                terraform init
+                terraform plan
+                terraform apply --auto-approve 
                 docker stop tomcatInstanceProd || true
-                docker rm tomcatInstanceProd || true
+                docker rm tomcatInstanceProd || true              
                 docker run -itd --name tomcatInstanceProd -p 8083:8080 "${DOCKER_HUB_REPO}":$BUILD_NUMBER
                 '''
+                
             }
         }
     }
