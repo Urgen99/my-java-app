@@ -113,16 +113,17 @@ pipeline {
                 timeout(time:1, unit: 'DAYS'){
                     input message: 'Approve PRODUCTION Deployment?'
                 }
-                echo " Running app on Prod env"
-                sh '''
-                cd ${terraform_workdir}
-                terraform init
-                terraform plan
-                terraform apply --auto-approve 
-                docker stop tomcatInstanceProd || true
-                docker rm tomcatInstanceProd || true              
-                docker run -itd --name tomcatInstanceProd -p 8083:8080 "${DOCKER_HUB_REPO}":$BUILD_NUMBER
-                '''
+                 dir("${terraform_workdir}"){
+                    echo " Running app on Prod env"
+                    sh '''
+                    terraform init
+                    terraform plan
+                    terraform apply --auto-approve 
+                    docker stop tomcatInstanceProd || true
+                    docker rm tomcatInstanceProd || true              
+                    docker run -itd --name tomcatInstanceProd -p 8083:8080 "${DOCKER_HUB_REPO}":$BUILD_NUMBER
+                    '''
+                 }
                 
             }
         }
