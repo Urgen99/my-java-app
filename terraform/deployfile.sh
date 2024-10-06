@@ -5,7 +5,7 @@ sudo sh get-docker.sh
 sudo groupadd docker
 sudo usermod -aG docker ubuntu
 
-docker pull urgentamang/localtomcatimg:79
-docker stop tomcatInstanceProd || true
-docker rm tomcatInstanceProd || true
-docker run -itd --name tomcatInstanceProd -p 8083:8080  urgentamang/localtomcatimg:79
+# docker pull urgentamang/localtomcatimg:79
+# docker stop tomcatInstanceProd || true
+# docker rm tomcatInstanceProd || true
+# docker run -itd --name tomcatInstanceProd -p 8083:8080  urgentamang/localtomcatimg:79

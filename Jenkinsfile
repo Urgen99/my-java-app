@@ -96,7 +96,7 @@ pipeline {
             }
             steps{
                 echo "Running app on staging env"
-                 sh '''
+                sh '''
                 docker stop tomcatInstanceStaging || true
                 docker rm tomcatInstanceStaging || true
                 docker run -itd --name tomcatInstanceStaging -p 8082:8080 "${DOCKER_HUB_REPO}":$BUILD_NUMBER
@@ -121,9 +121,9 @@ pipeline {
                     terraform apply --auto-approve 
                     
                     '''
-                    // docker stop tomcatInstanceProd || true
-                    // docker rm tomcatInstanceProd || true              
-                    // docker run -itd --name tomcatInstanceProd -p 8083:8080 "${DOCKER_HUB_REPO}":$BUILD_NUMBER
+                    docker stop tomcatInstanceProd || true
+                    docker rm tomcatInstanceProd || true              
+                    docker run -itd --name tomcatInstanceProd -p 8083:8080 "${DOCKER_HUB_REPO}":$BUILD_NUMBER
                  }
                 
             }
