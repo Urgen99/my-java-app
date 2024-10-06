@@ -119,11 +119,10 @@ pipeline {
                     terraform init
                     terraform plan
                     terraform apply --auto-approve 
-                    
-                    '''
                     docker stop tomcatInstanceProd || true
                     docker rm tomcatInstanceProd || true              
                     docker run -itd --name tomcatInstanceProd -p 8083:8080 "${DOCKER_HUB_REPO}":$BUILD_NUMBER
+                 '''
                  }
                 
             }
