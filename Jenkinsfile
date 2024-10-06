@@ -4,6 +4,10 @@ pipeline {
     }
     environment {
         scannerHome = tool 'sonar6.2'
+        // registry = "urgentamang/localtomcatimg"
+        // registryCredential = 'Dockerhub-credentials'
+        // dockerImage = 'localtomcatimg:$BUILD_NUMBER'
+        dockerhub_credential = credentials('dockerhub')
     }
     stages {
         stage('Build') {
@@ -62,11 +66,20 @@ pipeline {
                 sh '''
                 original_pwd=$(pwd -P)
                 docker build -t localtomcatimg:$BUILD_NUMBER .
-                docker login -u urgentamang
                 docker image push localtomcatimg:$BUILD_NUMBER
                 docker rmi localtomcatimg:$BUILD_NUMBER
                 cd $original_pwd
                 '''
+            }
+        }
+        stage('Docker login ') {
+            agent {
+                label 'ubuntu-slave'
+            }
+            steps {
+                sh """
+                        echo ${dockerhub_credential_PSW} | docker login -u ${dockerhub_credential_USR} --password-stdin
+                    """
             }
         }
         stage('Deploy to Staging') {
