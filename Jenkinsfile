@@ -54,7 +54,16 @@ pipeline {
                 )
             }
         }     
-
+        stage('Docker login ') {
+            agent {
+                label 'ubuntu-slave'
+            }
+            steps {
+                sh """
+                        echo ${dockerhub_credential_PSW} | docker login -u ${dockerhub_credential_USR} --password-stdin
+                    """
+            }
+        }
         stage('Create Tomcat Image') {
             agent {
                 label 'ubuntu-slave'
@@ -70,16 +79,6 @@ pipeline {
                 docker rmi localtomcatimg:$BUILD_NUMBER
                 cd $original_pwd
                 '''
-            }
-        }
-        stage('Docker login ') {
-            agent {
-                label 'ubuntu-slave'
-            }
-            steps {
-                sh """
-                        echo ${dockerhub_credential_PSW} | docker login -u ${dockerhub_credential_USR} --password-stdin
-                    """
             }
         }
         stage('Deploy to Staging') {
