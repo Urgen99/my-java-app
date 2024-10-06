@@ -5,7 +5,7 @@ pipeline {
     environment {
         scannerHome = tool 'sonar6.2'
         dockerhub_credentail_id = '	Dockerhub-credentials'
-         DOCKER_HUB_REPO = "urgentamang/localtomcatimg"
+        DOCKER_HUB_REPO = "urgentamang/localtomcatimg"
 
         // registry = "urgentamang/localtomcatimg"
         // registryCredential = 'Dockerhub-credentials'
@@ -67,6 +67,7 @@ pipeline {
                        sh 'echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin'
                     
                  
+            }
             }
         }
         stage('Create Tomcat Image') {
